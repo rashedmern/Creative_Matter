@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "The Dark Is No Longer Scary"
+version = "1.0.0"
+id = "artifacts/dark-app"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20489
+
+[services.development]
+run = "pnpm --filter @workspace/dark-app run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/dark-app", "run", "build" ]
+publicDir = "artifacts/dark-app/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20489"
+BASE_PATH = "/"
